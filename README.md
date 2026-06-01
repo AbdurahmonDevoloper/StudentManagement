@@ -3,10 +3,10 @@
 StudentManagement - bu C# dasturlash tili va .NET platformasida yaratilgan konsol korporativ tizimi bo'lib, o'qituvchilar va talabalar ma'lumotlarini samarali boshqarish (CRUD amallari) uchun mo'ljallangan.
 
 ---
-
 ## Loyiha Logotipi
+
 <p align="center">
-  <img src="images/logo.png" width="654" alt="<img width="654" 
+  <img src="images/logo.png" width="654" alt="Loyiha Logotipi">
 </p>
 
 *(Eslatma: Loyihangiz logotipini ko'rsatish uchun loyiha ildiz papkasida `images` degan papka ochib, uning ichiga `logo.png` rasmini joylashtiring)*
