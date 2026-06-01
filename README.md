@@ -19,7 +19,7 @@ StudentManagement - bu C# dasturlash tili va .NET platformasida yaratilgan konso
 Dasturning konsol muhitida ishlash jarayoni va menyular ko'rinishi:
 
 <p align="center">
-" alt="<img width="861" height="654" alt="Km hisoblaydi" src="https://github.com/user-attachments/assets/39ec8356-ca3b-4564-9435-9bd43e38a1eb" />
+<img width="861" height="654" alt="Km hisoblaydi" src="https://github.com/user-attachments/assets/39ec8356-ca3b-4564-9435-9bd43e38a1eb" />
 </p>
 
 *(Eslatma: Dastur ishlayotgan vaqtdagi skrinshotni `images` papkasiga `application_demo.png` nomi bilan joylashtiring)*
