@@ -1,4 +1,3 @@
-<img width="654" height="476" alt="photo_2026-06-01_10-09-15" src="https://github.com/user-attachments/assets/b856454b-96ee-464b-a3e1-a75d67e86469" />
 # StudentManagement CRUD System
 
 StudentManagement - bu C# dasturlash tili va .NET platformasida yaratilgan konsol korporativ tizimi bo'lib, o'qituvchilar va talabalar ma'lumotlarini samarali boshqarish (CRUD amallari) uchun mo'ljallangan.
