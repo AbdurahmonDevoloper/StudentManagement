@@ -44,10 +44,3 @@ Loyiha ob'ektga yo'naltirilgan dasturlash (OOP) tamoyillari asosida alohida fayl
 
 ---
 
-## Loyihani Ishga Tushirish
-
-Loyihani o'zingizning kompyuteringizda ishga tushirish uchun quyidagi buyruqlarni ketma-ket bajaring:
-
-1. Repozitoriyani yuklab oling:
-   ```bash
-   git clone [https://github.com/foydalanuvchi_nomi/repo_nomi.git](https://github.com/foydalanuvchi_nomi/repo_nomi.git)
