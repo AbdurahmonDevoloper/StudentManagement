@@ -7,9 +7,6 @@ StudentManagement - bu C# dasturlash tili va .NET platformasida yaratilgan konso
 
 <img width="654" height="476" alt="photo_2026-06-01_10-09-15" src="https://github.com/user-attachments/assets/08053e1f-4ed6-422c-a47d-1b3aefa1cbd0" />
 
-
-*(Eslatma: Loyihangiz logotipini ko'rsatish uchun loyiha ildiz papkasida `images` degan papka ochib, uning ichiga `logo.png` rasmini joylashtiring)*
-
 ---
 
 ## Loyihaning Ishlash Jarayoni
