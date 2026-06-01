@@ -7,7 +7,7 @@ StudentManagement - bu C# dasturlash tili va .NET platformasida yaratilgan konso
 ## Loyiha Logotipi
 
 <p align="center">
-  <img src="images/logo.png" alt="StudentManagement Logo" width="200px">
+  <img src="<img width="654" 
 </p>
 
 *(Eslatma: Loyihangiz logotipini ko'rsatish uchun loyiha ildiz papkasida `images` degan papka ochib, uning ichiga `logo.png` rasmini joylashtiring)*
