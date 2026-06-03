@@ -1,73 +1,92 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace StudentManagement
+public class StudentManager
 {
-    public class StudentManager
+    private Student[] _studentArray = new Student[0];
+    
+    private List<Student> _studentList = new List<Student>();
+    private int _nextId = 1;
+
+    public void Create(string name)
     {
-        private List<Student> _students = new List<Student>();
-        private int _nextId = 1;
+        Student student = new Student { Id = _nextId++, Name = name };
+        _studentList.Add(student);
+        SyncArray(); 
+    }
 
-        // Create - Yangi talaba qo'shish
-        public void Create(string name, int age, int teacherId)
+    public void ReadAll()
+    {
+        if (!_studentList.Any())
         {
-            Student newStudent = new Student
-            {
-                Id = _nextId++,
-                Name = name,
-                Age = age,
-                TeacherId = teacherId
-            };
-            _students.Add(newStudent);
-            Console.WriteLine("Talaba muvaffaqiyatli qo'shildi!");
+            Console.WriteLine("Talabalar ro'yxati bo'sh!");
+            return;
         }
-
-        // Read - Barcha talabalarni ko'rish
-        public void ReadAll()
+        foreach (var student in _studentList)
         {
-            if (_students.Count == 0)
-            {
-                Console.WriteLine("Hozircha talabalar yo'q.");
-                return;
-            }
-
-            Console.WriteLine("\n--- Talabalar Ro'yxati ---");
-            foreach (var student in _students)
-            {
-                Console.WriteLine($"ID: {student.Id} | Ism: {student.Name} | Yosh: {student.Age} | O'qituvchi ID: {student.TeacherId}");
-            }
+            Console.WriteLine($"ID: {student.Id}, Ismi: {student.Name}");
         }
+    }
 
-        // Update - Talaba ma'lumotlarini o'zgartirish
-        public void Update(int id, string newName, int newAge, int newTeacherId)
+    public void Update(int id, string newName)
+    {
+        var student = _studentList.FirstOrDefault(s => s.Id == id);
+        if (student != null)
         {
-            Student student = _students.Find(s => s.Id == id);
-            if (student != null)
-            {
-                student.Name = newName;
-                student.Age = newAge;
-                student.TeacherId = newTeacherId;
-                Console.WriteLine("Talaba ma'lumotlari yangilandi!");
-            }
-            else
-            {
-                Console.WriteLine("Bunday ID dagi talaba topilmadi.");
-            }
+            student.Name = newName;
+            SyncArray();
         }
+    }
 
-        // Delete - Talabani o'chirish
-        public void Delete(int id)
+    public void Delete(int id)
+    {
+        var student = _studentList.FirstOrDefault(s => s.Id == id);
+        if (student != null)
         {
-            Student student = _students.Find(s => s.Id == id);
-            if (student != null)
-            {
-                _students.Remove(student);
-                Console.WriteLine("Talaba o'chirildi!");
-            }
-            else
-            {
-                Console.WriteLine("Bunday ID dagi talaba topilmadi.");
-            }
+            _studentList.Remove(student);
+            SyncArray();
         }
+    }
+
+    public void GetStudentsByName(string name)
+    {
+        var result = _studentList.Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        Console.WriteLine($"\n--- '{name}' qatnashgan talabalar ---");
+        foreach (var s in result) Console.WriteLine($"ID: {s.Id}, Ismi: {s.Name}");
+    }
+
+    public void GetPaginatedStudents(int page, int pageSize)
+    {
+        var result = _studentList
+            .OrderBy(s => s.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        Console.WriteLine($"\n--- Sahifa: {page}, Soniv: {pageSize} (Alifbo bo'yicha) ---");
+        foreach (var s in result) Console.WriteLine($"ID: {s.Id}, Ismi: {s.Name}");
+    }
+
+    public void GetStudentsCount()
+    {
+        int count = _studentList.Count();
+        Console.WriteLine($"\nUmumiy talabalar soni: {count} ta");
+    }
+
+    public void AddStudentRange(params Student[] students)
+    {
+        foreach (var s in students)
+        {
+            s.Id = _nextId++;
+            _studentList.Add(s);
+        }
+        SyncArray();
+        Console.WriteLine($"\n{students.Length} ta talaba guruh bo'lib qo'shildi.");
+    }
+
+    private void SyncArray()
+    {
+        _studentArray = _studentList.ToArray();
     }
 }

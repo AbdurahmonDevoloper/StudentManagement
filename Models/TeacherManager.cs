@@ -1,77 +1,91 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace StudentManagement
+public class TeacherManager
 {
-    public class TeacherManager
+    private Teacher[] _teacherArray = new Teacher[0];
+    private List<Teacher> _teacherList = new List<Teacher>();
+    private int _nextId = 1;
+
+    public void Create(string name)
     {
-        private List<Teacher> _teachers = new List<Teacher>();
-        private int _nextId = 1;
+        Teacher teacher = new Teacher { Id = _nextId++, Name = name };
+        _teacherList.Add(teacher);
+        SyncArray();
+    }
 
-        // Create - Yangi o'qituvchi qo'shish
-        public void Create(string name, string subject)
+    public void ReadAll()
+    {
+        if (!_teacherList.Any())
         {
-            Teacher newTeacher = new Teacher
-            {
-                Id = _nextId++,
-                Name = name,
-                Subject = subject
-            };
-            _teachers.Add(newTeacher);
-            Console.WriteLine("O'qituvchi muvaffaqiyatli qo'shildi!");
+            Console.WriteLine("O'qituvchilar ro'yxati bo'sh!");
+            return;
         }
-
-        // Read - Barcha o'qituvchilarni ko'rish
-        public void ReadAll()
+        foreach (var teacher in _teacherList)
         {
-            if (_teachers.Count == 0)
-            {
-                Console.WriteLine("Hozircha o'qituvchilar yo'q.");
-                return;
-            }
-
-            Console.WriteLine("\n--- O'qituvchilar Ro'yxati ---");
-            foreach (var teacher in _teachers)
-            {
-                Console.WriteLine($"ID: {teacher.Id} | Ism: {teacher.Name} | Fan: {teacher.Subject}");
-            }
+            Console.WriteLine($"ID: {teacher.Id}, Ismi: {teacher.Name}");
         }
+    }
 
-        // Update - O'qituvchi ma'lumotlarini o'zgartirish
-        public void Update(int id, string newName, string newSubject)
+    public void Update(int id, string newName)
+    {
+        var teacher = _teacherList.FirstOrDefault(t => t.Id == id);
+        if (teacher != null)
         {
-            Teacher teacher = _teachers.Find(t => t.Id == id);
-            if (teacher != null)
-            {
-                teacher.Name = newName;
-                teacher.Subject = newSubject;
-                Console.WriteLine("O'qituvchi ma'lumotlari yangilandi!");
-            }
-            else
-            {
-                Console.WriteLine("Bunday ID dagi o'qituvchi topilmadi.");
-            }
+            teacher.Name = newName;
+            SyncArray();
         }
+    }
 
-        // Delete - O'qituvchini o'chirish
-        public void Delete(int id)
+    public void Delete(int id)
+    {
+        var teacher = _teacherList.FirstOrDefault(t => t.Id == id);
+        if (teacher != null)
         {
-            Teacher teacher = _teachers.Find(t => t.Id == id);
-            if (teacher != null)
-            {
-                _teachers.Remove(teacher);
-                Console.WriteLine("O'qituvchi o'chirildi!");
-            }
-            else
-            {
-                Console.WriteLine("Bunday ID dagi o'qituvchi topilmadi.");
-            }
+            _teacherList.Remove(teacher);
+            SyncArray();
         }
+    }
 
-        // Qo'shimcha metod: Id bo'yicha tekshirish uchun
-        public bool Exists(int id)
+    public void GetTeachersByName(string name)
+    {
+        var result = _teacherList.Where(t => t.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        Console.WriteLine($"\n--- '{name}' qatnashgan o'qituvchilar ---");
+        foreach (var t in result) Console.WriteLine($"ID: {t.Id}, Ismi: {t.Name}");
+    }
+
+    public void GetPaginatedTeachers(int page, int pageSize)
+    {
+        var result = _teacherList
+            .OrderBy(t => t.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        Console.WriteLine($"\n--- Sahifa: {page}, Soniv: {pageSize} (Alifbo bo'yicha) ---");
+        foreach (var t in result) Console.WriteLine($"ID: {t.Id}, Ismi: {t.Name}");
+    }
+
+    public void GetTeachersCount()
+    {
+        int count = _teacherList.Count();
+        Console.WriteLine($"\nUmumiy o'qituvchilar soni: {count} ta");
+    }
+
+    public void AddTeacherRange(params Teacher[] teachers)
+    {
+        foreach (var t in teachers)
         {
-            return _teachers.Exists(t => t.Id == id);
+            t.Id = _nextId++;
+            _teacherList.Add(t);
         }
+        SyncArray();
+        Console.WriteLine($"\n{teachers.Length} ta o'qituvchi guruh bo'lib qo'shildi.");
+    }
+
+    private void SyncArray()
+    {
+        _teacherArray = _teacherList.ToArray();
     }
 }
