@@ -1,5 +1,8 @@
-public class Student
+namespace StudentManagement.Models
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public class Student : Person
+    {
+        public double GPA { get; set; }
+        public string ClassName { get; set; } 
+    }
 }

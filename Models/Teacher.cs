@@ -1,5 +1,7 @@
-public class Teacher
+namespace StudentManagement.Models
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public class Teacher : Person
+    {
+        public string Subject { get; set; } 
+    }
 }
